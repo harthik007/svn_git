@@ -1,0 +1,83 @@
+<project name="idea" default="test">
+
+
+      <echo message="ANT HOME  :  ${ant.home}"/>
+      <echo message="JAVA HOME : ${java.home}"/>
+      <echo message="ANT VERSION :${ant.version}"/>
+      <echo message="JAVA VERSION : ${java.version}"/>
+
+
+<mkdir dir="backup"/>
+<mkdir dir="javadoc"/>
+<mkdir dir="copy"/>
+
+    <tstamp>
+
+       <format property="mytime" pattern="DD:MM:YYYY:HH:mm:SS"/>
+
+   </tstamp>
+
+<property file="build.properties"/>
+
+   <target name="compile">
+<record loglevel="verbose" name="record.txt" action="start"/>
+
+       <mkdir dir="class"/>
+       <javac srcdir="src" destdir="class"/>
+
+   </target>
+
+   <target name="package">
+ 
+        <mkdir dir="lib"/>
+        <jar basedir="class" destfile="lib/idea.jar"/>
+   </target>
+
+   <target name="copy">
+
+       <touch file="copyfile"/>
+
+       <chmod file="copyfile" perm="777"/>
+   
+    <copy file="copyfile" todir="copy/copyfile_${mytime}"/>
+   </target>
+
+   <target name="javadoc">
+
+      <javadoc destdir="javadoc">
+        <fileset dir="src"/>
+      </javadoc>
+   </target>
+
+   <target name="run">
+
+     <java jar="lib/idea.jar" fork="true"/>
+   
+   </target>
+  
+
+   <target name="test"  depends="compile,package,copy,javadoc,run">
+
+<!--  <junit printsummary="yes" haltonfailure="yes">
+
+     <classpath refid="test.path"/> 
+     <classpath location="class"/>
+  <formatter type="xml"/>
+ 
+  </junit> -->
+
+    </target>
+
+<record name="record.txr" action="stop"/>
+
+   <target name="clean">
+      <delete dir="class"/>
+      <delete dir="lib"/>
+      <delete dir="copy"/>
+      <delete dir="javadoc"/>
+      <delete file="copyfile"/>
+      <delete file="record.txr"/>
+      <delete file="record.txt"/>
+   </target>
+
+</project>
