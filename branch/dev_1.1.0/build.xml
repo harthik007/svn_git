@@ -1,6 +1,6 @@
 <project name="idea" default="test">
 
-
+      <echo message="SVN MERGE"/>
       <echo message="ANT HOME  :  ${ant.home}"/>
       <echo message="JAVA HOME : ${java.home}"/>
       <echo message="ANT VERSION :${ant.version}"/>
