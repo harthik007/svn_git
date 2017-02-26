@@ -78,6 +78,8 @@
       <delete file="copyfile"/>
       <delete file="record.txr"/>
       <delete file="record.txt"/>
-   </target>
+      <delete file="fgh.txt/>
+
+</target>
 
 </project>
